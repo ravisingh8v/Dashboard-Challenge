@@ -1,0 +1,51 @@
+// Global styles goes here
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html,
+body {
+  height: 100%;
+  width: 100%;
+}
+
+// root style
+:root.light {
+  --primary-bg-color: white;
+  --secondary-bg-color: lightblue;
+  --primary-color: #343a40;
+  --secondary-color: grey;
+}
+:root.dark {
+  --primary-bg-color: #101321;
+  --secondary-bg-color: black;
+  --primary-color: white;
+  --secondary-color: grey;
+}
+.color-primary {
+  color: var(--primary-color);
+}
+.color-secondary {
+  color: var(--secondary-color);
+}
+#app {
+  height: inherit;
+  color: var(--color);
+}
+.main_section {
+  background-color: var(--primary-bg-color);
+}
+
+.cp {
+  cursor: pointer;
+}
+.icon {
+  cursor: pointer;
+}
+.theme-p {
+  padding: 20px;
+}
+.header_height {
+  height: 55px;
+}
