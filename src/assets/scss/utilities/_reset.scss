@@ -1,6 +1,7 @@
 // Resetting CSS
 body {
   background-color: $light;
+  color: var(--primary-color);
 }
 // li reset
 ul {
@@ -21,6 +22,6 @@ a,
 }
 // anchor reset
 a {
+  all: unset;
   text-decoration: none;
-  color: $white;
 }

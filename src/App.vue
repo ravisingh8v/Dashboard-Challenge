@@ -1,14 +1,14 @@
 <template>
   <section class="h-100 d-flex">
     <aside class="" id="sidebar">
-      <TheSidebar></TheSidebar>
+      <TheSidebar @themeSwitcher="themeSwitcher"></TheSidebar>
     </aside>
     <section class="d-flex flex-column flex-grow-1 main_section">
-      <header class="header_height border-bottom border-secondary" id="header">
+      <header class="header_height" id="header">
         <TheHeader></TheHeader>
       </header>
-      <main class="flex-grow-1">
-        <DashBoardStatistics></DashBoardStatistics>
+      <main class="flex-grow-1 d-flex flex-column">
+        <RouterView></RouterView>
       </main>
     </section>
   </section>
@@ -16,12 +16,35 @@
 <script lang="ts">
 import TheHeader from "./components/layout/TheHeader.vue";
 import TheSidebar from "./components/layout/TheSidebar.vue";
-import DashBoardStatistics from "./components/dashboard/DashBoardStatistics.vue";
+import { ref, computed, watch } from "vue";
 export default {
-  components: { TheHeader, TheSidebar, DashBoardStatistics },
+  components: { TheHeader, TheSidebar },
   setup() {
-    document.documentElement.className = "dark";
-    return {};
+    const theme = ref();
+    const themeChanger = computed(() => {
+      return localStorage.getItem("theme");
+    });
+    watch(
+      themeChanger,
+      () => {
+        theme.value = themeChanger?.value;
+      },
+      { immediate: true }
+    );
+    document.documentElement.className = theme.value;
+
+    function themeSwitcher(value: boolean) {
+      localStorage.clear();
+      if (value == true) {
+        console.log("hello");
+        document.documentElement.className = "light";
+        localStorage.setItem("theme", "light");
+      } else {
+        document.documentElement.className = "dark";
+        localStorage.setItem("theme", "dark");
+      }
+    }
+    return { themeSwitcher };
   },
 };
 </script>

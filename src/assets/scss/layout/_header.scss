@@ -1,5 +1,56 @@
 #header {
   li {
-    margin: 0 30px;
+    a {
+      padding: 0 15px;
+    }
+  }
+  .profile-wrapper {
+    height: 26px;
+    width: 26px;
+    overflow: hidden;
+    border-radius: 50%;
+    background-color: rgb(46, 86, 160);
+    img {
+      height: auto;
+      width: 100%;
+      object-fit: cover;
+    }
+    span {
+      display: inline-block;
+      width: inherit;
+      height: inherit;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    &.partner_logo {
+      margin-left: -10px;
+      display: flex;
+      height: 28px;
+      width: 28px;
+      justify-content: center;
+      align-items: center;
+      border: 2px solid var(--primary-bg-color);
+    }
+  }
+  .bar_chart_icon {
+    rotate: 180deg;
+    transform: scaleX(-1);
+  }
+  .router_link {
+    height: 91%;
+    width: inherit;
+    display: flex;
+    align-items: center;
+    border: 2px solid transparent;
+    &:hover,
+    &:active {
+      color: var(--primary-color);
+    }
+  }
+  a.active {
+    border: 2px solid rgb(160, 173, 177);
+    color: var(--primary-color);
   }
 }

@@ -13,15 +13,17 @@ body {
 // root style
 :root.light {
   --primary-bg-color: white;
-  --secondary-bg-color: lightblue;
+  --secondary-bg-color: rgb(160, 173, 177);
   --primary-color: #343a40;
   --secondary-color: grey;
+  --border: #dfe8f1;
 }
 :root.dark {
   --primary-bg-color: #101321;
   --secondary-bg-color: black;
-  --primary-color: white;
-  --secondary-color: grey;
+  --primary-color: rgb(204, 204, 204);
+  --secondary-color: rgb(170, 170, 170);
+  --border: #6c757d;
 }
 .color-primary {
   color: var(--primary-color);
@@ -48,4 +50,11 @@ body {
 }
 .header_height {
   height: 55px;
+  border-bottom: 1px solid var(--border);
+}
+.b-primary {
+  border: 1px solid var(--border);
+}
+.bb-primary {
+  border-bottom: 1px solid var(--border);
 }
