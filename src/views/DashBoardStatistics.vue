@@ -1,27 +1,27 @@
 <template>
   <section class="flex-grow-1">
     <div class="row gx-0 h-100 pb-3">
-      <div class="col-4 health_wrapper">
+      <div class="col-4 health_wrapper h-50">
         <StatisticsHealth></StatisticsHealth>
       </div>
 
-      <div class="col-4 task_wrapper">
+      <div class="col-4 task_wrapper h-50">
         <StatisticsTasks></StatisticsTasks>
       </div>
 
-      <div class="col-4 progress_wrapper">
+      <div class="col-4 progress_wrapper h-50">
         <StatisticsProgress></StatisticsProgress>
       </div>
 
-      <div class="col-4 time_wrapper">
+      <div class="col-4 time_wrapper h-50">
         <StatisticsTime></StatisticsTime>
       </div>
 
-      <div class="col-4 cost_wrapper">
+      <div class="col-4 cost_wrapper h-50">
         <StatisticsCost></StatisticsCost>
       </div>
 
-      <div class="col-4 workload_wrapper">
+      <div class="col-4 workload_wrapper h-50">
         <StatisticsWorkload></StatisticsWorkload>
       </div>
     </div>
