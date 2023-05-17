@@ -3,12 +3,9 @@
     <!-- Top Section  -->
     <StatisticsCardHeader title="Cost"></StatisticsCardHeader>
     <div class="mt-2 chartContainer flex-grow-1">
-      <canvas
-        ref="costChart"
-        width="100"
-        height="100"
-        area-label="cost-chart"
-      ></canvas>
+      <canvas ref="costChart" area-label="cost-chart"></canvas>
+      <!-- width="100" -->
+      <!-- height="100" -->
     </div>
   </section>
 </template>
@@ -20,75 +17,99 @@ export default {
   components: { StatisticsCardHeader },
   setup() {
     const costChart = ref();
-    const data = ["3.3", "4.5", "6"];
 
     onMounted(() => {
+      const data = ["3.3", "4.5", "6"];
       // options
       // Chart Data
       const chartData = {
-        labels: [`actual`, "planned", "budget"],
+        labels: [""],
         datasets: [
+          // { label: "", data: "0" },
+
           {
-            label: "",
-            categoryPercentage: 1.0, // notice here
-            barPercentage: 1.0,
-            data: data,
-            backgroundColor: ["#9da4ad", "#6bc76e", "#4fcbc2"],
-            barThickness: 40,
-            // scales: {
-            //   x: {
-            //     barPercentage: 1,
-            //     categoryPercentage: 1,
-            //   },
-            // },
+            label: "actual",
+            // categoryPercentage: 1.0,
+            // barPercentage: 1.0,
+            data: data[0],
+            backgroundColor: ["#84bb5d"],
+            barThickness: 60,
           },
+          {
+            label: "planned",
+            // categoryPercentage: 1.0,
+            // barPercentage: 1.0,
+            data: "4.5",
+            backgroundColor: ["#54d2f9"],
+            barThickness: 60,
+          },
+          {
+            label: "budget",
+            // categoryPercentage: 1.0,
+            // barPercentage: 1.0,
+            data: "6",
+            backgroundColor: ["#4198e0"],
+            barThickness: 60,
+          },
+          // { label: "", data: "0" },
         ],
       };
+      // const legendMarginLeft = {
+      //   id: "legendMarginLeft",
+      //   afterInit(chart: Chart, args: any, options: any) {
+      //     console.log(chart);
+      //     const fitValue = chart.legend;
+      //   },
+      // };
       // Chart js
       new Chart(costChart.value.getContext("2d"), {
         type: "bar",
         data: chartData,
+        // OPTIONS
         options: {
+          maintainAspectRatio: false,
+          // responsive: true,
+          // PLUGINS
           plugins: {
             legend: {
+              position: "top",
+              align: "start",
               labels: {
-                color: "red",
-                generateLabels: (chart: any) => {
-                  // console.log(chart);
-                  const label = chart.data.labels?.map(
-                    (label: any, index: any) => ({
-                      text: label,
-                      strokeStyle:
-                        chart.data.datasets[0]?.backgroundColor[index],
-                      fillStyle: chart.data.datasets[0]?.backgroundColor[index],
-                      colorStyle:
-                        chart.data.datasets[0]?.backgroundColor[index],
-                      hidden: false,
-                    })
-                  );
-                  return label;
+                font: {
+                  size: 15,
                 },
+                color: "gray",
                 usePointStyle: true,
                 pointStyle: "circle",
               },
             },
           },
-          maintainAspectRatio: false,
+          // LAYOUT
           layout: {
             padding: {
-              left: 50,
-              right: 50,
-              top: 0,
-              bottom: 0,
+              bottom: 10,
+              right: 20,
             },
           },
+          // SCALE
           scales: {
             y: {
               ticks: {
+                callback: function (value, index) {
+                  if (index == 0) {
+                    return "$" + value;
+                  } else {
+                    return value + "k";
+                  }
+                },
                 stepSize: 1.5,
+                color: "gray",
+                font: {
+                  size: 17,
+                },
+                padding: 20,
               },
               grid: {
-                // display: false,
                 color: "gray",
               },
               border: {
@@ -96,22 +117,48 @@ export default {
               },
             },
             x: {
+              // position: "center",
               grid: {
                 display: false,
-                // color: "gray",
+              },
+            },
+          },
+          // ELEMENTS
+          elements: {
+            bar: {
+              borderColor: "transparent",
+              borderWidth: {
+                left: 4,
+                right: 4,
               },
             },
           },
         },
+        plugins: [plugin],
       });
     });
+    // to space between legend and chart
+    const plugin = {
+      id: "increase-legend-spacing",
+      beforeInit(chart: any) {
+        // Get reference to the original fit function
+        const originalFit = chart.legend.fit;
 
+        // Override the fit function
+        chart.legend.fit = function fit() {
+          // Call original function and bind scope in order to use `this` correctly inside it
+          originalFit.bind(chart.legend)();
+          // Change the height as suggested in another answers
+          this.height += 40;
+        };
+      },
+    };
     return { costChart };
   },
 };
 </script>
 <style lang="scss" scoped>
 .chartContainer {
-  height: 100%;
+  height: 300px;
 }
 </style>

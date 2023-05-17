@@ -1,54 +1,141 @@
 <template>
-  <section class="px-4">
+  <section class="px-4 d-flex flex-column h-100">
     <!-- Top Section  -->
     <StatisticsCardHeader title="Progress"></StatisticsCardHeader>
-    <div ref="chartContainer"></div>
+    <div id="chartContainer" class="mt-4">
+      <canvas
+        ref="progressBar"
+        height=""
+        width=""
+        area-label="progress-bar"
+      ></canvas>
+    </div>
   </section>
 </template>
 <script lang="ts">
 import StatisticsCardHeader from "@/components/UI/StatisticsCardHeader.vue";
 import { defineComponent } from "vue";
-import * as d3 from "d3";
 import { onMounted, ref } from "vue";
+import { Chart } from "chart.js/auto";
 export default defineComponent({
   components: { StatisticsCardHeader },
   setup() {
-    const chartContainer = ref();
+    const progressBar = ref();
     onMounted(() => {
-      const data = [10, 20, 30, 40, 50];
-      const width = 200;
-      const height = 250;
-      const margin = { top: 0, bottom: 0, left: 0, right: 0 };
+      new Chart(progressBar.value, {
+        type: "bar",
+        data: {
+          labels: [
+            "Congrats",
+            "Design",
+            "Procurement",
+            "Construction",
+            "Post Con...",
+            "Project Col...",
+          ],
 
-      const xScale = d3
-        .scaleBand<number>()
-        .domain(data.map((d, i) => i))
-        .range([0, 500])
-        .padding(0.1);
+          datasets: [
+            {
+              label: "",
+              data: ["100", "80", "19", "0.5", "0.5", "0.5"],
+              backgroundColor: [
+                "#6acb6d",
+                "#67cb6c",
+                "#df5a9d",
+                // "yellow",
+                "#7f848e",
+                "#7f848e",
+                "#7f848e",
+              ],
+              barThickness: 40,
+            },
+          ],
+        },
 
-      const yScale = d3
-        .scaleLinear()
-        .domain([0, d3.max(data) || 0]) // Ensure a default value for undefined data
-        .range([500, 0]);
+        options: {
+          plugins: {
+            legend: {
+              display: false,
+            },
+          },
 
-      const container = d3
-        .select(chartContainer.value)
-        .append("svg")
-        .attr("width", width)
-        .attr("height", height);
-      console.log(container);
+          elements: {
+            bar: {
+              borderColor: "transparent",
+              borderWidth: {
+                top: 10,
+                bottom: 10,
+              },
+            },
+          },
+          maintainAspectRatio: false,
+          // responsive: true,
+          indexAxis: "y",
+          scales: {
+            x: {
+              display: false,
+              ticks: {
+                //   stepSize: 10,
+                //   callback: function (value) {
+                //     return value + "%";
+                //   },
+              },
+              grid: {
+                display: false,
+              },
+            },
+            y: {
+              afterFit: function (scale: any) {
+                scale.width = 160;
+              },
+              ticks: {
+                font: {
+                  size: 16,
+                },
+                // color: "white",
+                // align: "start",
+                crossAlign: "far",
+              },
 
-      container
-        .selectAll("rect")
-        .data(data)
-        .enter()
-        .append("rect")
-        .attr("x", (d, i) => xScale(i) || "".toString()) // Convert to string
-        .attr("y", (d) => yScale(d))
-        .attr("width", xScale.bandwidth())
-        .attr("height", (d) => 500 - yScale(d));
+              grid: {
+                display: false,
+              },
+            },
+          },
+        },
+        plugins: [customDataLabels],
+      });
     });
-    return { chartContainer };
+    const customDataLabels = {
+      id: "customDataLabels",
+      afterDatasetsDraw(chart: any) {
+        // console.log(chart);
+        const {
+          ctx,
+          data,
+          chartArea: { top, bottom, left, right, width, height },
+        } = chart;
+        ctx.save();
+        data.datasets[0].data.forEach((dataPoint: any, index: any) => {
+          const { x, y } = chart
+            .getDatasetMeta(0)
+            .data[index].tooltipPosition();
+
+          ctx.font = "normal 16px sans-serif";
+          ctx.fillStyle = data.datasets[0].backgroundColor[index];
+          (ctx.align = "right"), (ctx.textBaseline = "middle");
+          ctx.fillText(dataPoint + "%", 110, y);
+        });
+      },
+    };
+
+    return { progressBar };
   },
 });
 </script>
+<style scoped lang="scss">
+#chartContainer {
+  height: 300px;
+  padding-right: 40px;
+}
+</style>
