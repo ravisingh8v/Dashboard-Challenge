@@ -2,14 +2,17 @@
 * {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
+  // box-sizing: border-box;
 }
 html,
 body {
   height: 100%;
   width: 100%;
 }
-
+body {
+  overflow: hidden;
+  height: 100%;
+}
 // root style
 :root.light {
   --primary-bg-color: white;
@@ -32,7 +35,9 @@ body {
   color: var(--secondary-color);
 }
 #app {
-  height: inherit;
+  overflow: hidden;
+  height: 100%;
+  // width: 100%;
   color: var(--color);
 }
 .main_section {
@@ -57,4 +62,8 @@ body {
 }
 .bb-primary {
   border-bottom: 1px solid var(--border);
+}
+a.active {
+  border: 2px solid #6acb6d;
+  color: var(--primary-color);
 }

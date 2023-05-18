@@ -2,7 +2,7 @@
   <section class="px-4 h-100 d-flex flex-column">
     <!-- Top Section  -->
     <StatisticsCardHeader title="Cost"></StatisticsCardHeader>
-    <div class="mt-2 chartContainer flex-grow-1">
+    <div class="chartContainer flex-grow-1 mt-3">
       <canvas ref="costChart" area-label="cost-chart"></canvas>
       <!-- width="100" -->
       <!-- height="100" -->
@@ -28,7 +28,7 @@ export default {
           // { label: "", data: "0" },
 
           {
-            label: "actual",
+            label: "Actual",
             // categoryPercentage: 1.0,
             // barPercentage: 1.0,
             data: data[0],
@@ -36,7 +36,7 @@ export default {
             barThickness: 60,
           },
           {
-            label: "planned",
+            label: "Planned",
             // categoryPercentage: 1.0,
             // barPercentage: 1.0,
             data: "4.5",
@@ -44,7 +44,7 @@ export default {
             barThickness: 60,
           },
           {
-            label: "budget",
+            label: "Budget",
             // categoryPercentage: 1.0,
             // barPercentage: 1.0,
             data: "6",
@@ -68,7 +68,7 @@ export default {
         // OPTIONS
         options: {
           maintainAspectRatio: false,
-          // responsive: true,
+          responsive: true,
           // PLUGINS
           plugins: {
             legend: {
@@ -105,7 +105,7 @@ export default {
                 stepSize: 1.5,
                 color: "gray",
                 font: {
-                  size: 17,
+                  size: 15,
                 },
                 padding: 20,
               },
@@ -159,6 +159,6 @@ export default {
 </script>
 <style lang="scss" scoped>
 .chartContainer {
-  height: 300px;
+  height: 280px;
 }
 </style>

@@ -1,6 +1,7 @@
 .health_wrapper {
   border-right: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
+
   .table_row {
     border-bottom: 1px solid var(--border);
     display: block;
@@ -8,9 +9,11 @@
     margin-top: 12px;
     td:nth-child(1) {
       font-weight: 500;
+      width: 40%;
     }
     td:nth-child(2) {
       color: var(--secondary-color);
+      font-size: 15px;
     }
   }
 }

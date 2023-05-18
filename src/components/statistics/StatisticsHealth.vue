@@ -9,23 +9,23 @@
       <table class="w-100">
         <tbody>
           <tr class="table_row">
-            <td class="w-50">Time</td>
+            <td class="">Time</td>
             <td>14% ahead of schedule</td>
           </tr>
           <tr class="table_row">
-            <td class="w-50">Tasks</td>
+            <td class="">Tasks</td>
             <td>14% ahead of schedule</td>
           </tr>
           <tr class="table_row">
-            <td class="w-50">Workload</td>
+            <td class="">Workload</td>
             <td>14% ahead of schedule</td>
           </tr>
           <tr class="table_row">
-            <td class="w-50">Progress</td>
+            <td class="">Progress</td>
             <td>14% ahead of schedule</td>
           </tr>
           <tr class="table_row">
-            <td class="w-50">Cost</td>
+            <td class="">Cost</td>
             <td>14% ahead of schedule</td>
           </tr>
         </tbody>

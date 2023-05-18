@@ -2,13 +2,11 @@
   <section class="px-4 d-flex flex-column h-100">
     <!-- Top Section  -->
     <StatisticsCardHeader title="Progress"></StatisticsCardHeader>
-    <div id="chartContainer" class="mt-4">
-      <canvas
-        ref="progressBar"
-        height=""
-        width=""
-        area-label="progress-bar"
-      ></canvas>
+    <div
+      id="chartContainer"
+      class="d-flex justify-content-center align-items-center flex-grow-1"
+    >
+      <canvas ref="progressBar" area-label="progress-bar"></canvas>
     </div>
   </section>
 </template>
@@ -30,7 +28,7 @@ export default defineComponent({
             "Design",
             "Procurement",
             "Construction",
-            "Post Con...",
+            "Post Const...",
             "Project Col...",
           ],
 
@@ -90,11 +88,12 @@ export default defineComponent({
               },
               ticks: {
                 font: {
-                  size: 16,
+                  size: 15,
                 },
                 // color: "white",
                 // align: "start",
                 crossAlign: "far",
+                padding: 20,
               },
 
               grid: {
@@ -110,16 +109,10 @@ export default defineComponent({
       id: "customDataLabels",
       afterDatasetsDraw(chart: any) {
         // console.log(chart);
-        const {
-          ctx,
-          data,
-          chartArea: { top, bottom, left, right, width, height },
-        } = chart;
+        const { ctx, data } = chart;
         ctx.save();
         data.datasets[0].data.forEach((dataPoint: any, index: any) => {
-          const { x, y } = chart
-            .getDatasetMeta(0)
-            .data[index].tooltipPosition();
+          const { y } = chart.getDatasetMeta(0).data[index].tooltipPosition();
 
           ctx.font = "normal 16px sans-serif";
           ctx.fillStyle = data.datasets[0].backgroundColor[index];
@@ -135,7 +128,7 @@ export default defineComponent({
 </script>
 <style scoped lang="scss">
 #chartContainer {
-  height: 300px;
   padding-right: 40px;
+  width: 100%;
 }
 </style>

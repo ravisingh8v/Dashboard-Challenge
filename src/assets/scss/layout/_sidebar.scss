@@ -27,4 +27,15 @@
       object-fit: cover;
     }
   }
+
+  li {
+    width: 100%;
+
+    a {
+      padding-top: 10px;
+      padding-bottom: 10px;
+      text-align: center;
+      width: 100%;
+    }
+  }
 }

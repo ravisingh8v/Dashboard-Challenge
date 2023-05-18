@@ -1,27 +1,27 @@
 <template>
-  <section class="flex-grow-1">
+  <section class="h-100">
     <div class="row gx-0 h-100 pb-3">
-      <div class="col-4 health_wrapper h-50">
+      <div class="health_wrapper h-50 col-12 col-md-6 col-xxl-4">
         <StatisticsHealth></StatisticsHealth>
       </div>
 
-      <div class="col-4 task_wrapper h-50">
+      <div class="col-12 col-md-6 col-xxl-4 task_wrapper h-50">
         <StatisticsTasks></StatisticsTasks>
       </div>
 
-      <div class="col-4 progress_wrapper h-50">
+      <div class="col-12 col-md-6 col-xxl-4 progress_wrapper h-50">
         <StatisticsProgress></StatisticsProgress>
       </div>
 
-      <div class="col-4 time_wrapper h-50">
+      <div class="col-12 col-md-6 col-xxl-4 time_wrapper h-50">
         <StatisticsTime></StatisticsTime>
       </div>
 
-      <div class="col-4 cost_wrapper h-50">
+      <div class="col-12 col-md-6 col-xxl-4 cost_wrapper h-50">
         <StatisticsCost></StatisticsCost>
       </div>
 
-      <div class="col-4 workload_wrapper h-50">
+      <div class="col-12 col-md-6 col-xxl-4 workload_wrapper h-50">
         <StatisticsWorkload></StatisticsWorkload>
       </div>
     </div>
@@ -45,3 +45,8 @@ export default {
   },
 };
 </script>
+<style scoped lang="scss">
+.item-height {
+  height: 50%;
+}
+</style>

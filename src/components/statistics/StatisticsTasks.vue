@@ -2,7 +2,7 @@
   <section class="px-4">
     <!-- Top Section  -->
     <StatisticsCardHeader title="Tasks"></StatisticsCardHeader>
-    <div class="mt-2 chartContainer">
+    <div class="chartContainer mt-3">
       <canvas
         id="tasksChart"
         ref="tasksChart"
@@ -23,7 +23,7 @@ export default {
 
     onMounted(() => {
       const chartOptions = {
-        cutout: 87,
+        cutout: 82,
         borderWidth: 1,
         offset: 5,
         maintainAspectRatio: false,
@@ -107,11 +107,11 @@ export default {
           ctx.fillStyle = data.datasets[0].backgroundColor[index];
           ctx.textAlign = "center";
           ctx.textBaseline = "middle";
-          const xLine = x >= halfWidth ? x + 20 : x - 20;
-          const yLine = y >= halfHeight ? y + 20 : y - 20;
-          // const extraLine = x >= halfWidth ? 30 : -30;
+          const xLine = x >= halfWidth ? x + 25 : x - 10;
+          const yLine = y >= halfHeight ? y + 20 : y - 25;
+          const extraLine = x >= halfWidth ? 15 : -15;
           // ctx.moveTo(x, y);
-          ctx.fillText(dataPoint, xLine, yLine);
+          ctx.fillText(dataPoint, xLine + extraLine, yLine);
         });
       },
     };
@@ -122,5 +122,6 @@ export default {
 <style lang="scss" scoped>
 .chartContainer {
   height: 280px;
+  width: 100%;
 }
 </style>

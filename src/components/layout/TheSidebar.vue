@@ -24,6 +24,11 @@
         </div>
       </nav>
     </div>
+    <nav class="d-block d-md-none">
+      <ul class="d-flex flex-column align-items-center">
+        <BaseNav></BaseNav>
+      </ul>
+    </nav>
     <!-- bottom -->
     <nav class="d-flex flex-column align-items-center">
       <span

@@ -3,11 +3,11 @@
     <aside class="" id="sidebar">
       <TheSidebar @themeSwitcher="themeSwitcher"></TheSidebar>
     </aside>
-    <section class="d-flex flex-column flex-grow-1 main_section">
-      <header class="header_height" id="header">
+    <section class="d-flex w-100 flex-column h-100 main_section">
+      <header class="header_height flex-shrink-0" id="header">
         <TheHeader></TheHeader>
       </header>
-      <main class="flex-grow-1 d-flex flex-column">
+      <main class="d-flex flex-column flex-grow-1 overflow-auto">
         <RouterView></RouterView>
       </main>
     </section>
