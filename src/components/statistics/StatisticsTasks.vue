@@ -14,42 +14,37 @@
 <script lang="ts">
 import StatisticsCardHeader from "@/components/UI/StatisticsCardHeader.vue";
 import { Chart } from "chart.js/auto";
-import { ref, onMounted } from "vue";
+import { ref, inject, watch, computed, onMounted } from "vue";
 export default {
   components: { StatisticsCardHeader },
   setup() {
     const tasksChart = ref();
-    const data = [10, 6, 2];
+    let chartInstance: any = null;
+    const doughnutBorderColor = ref();
+    const getBorder = inject<any>("doughnutBorderColor");
+    const border = computed(() => {
+      return getBorder.value;
+    });
+
+    watch(
+      border,
+      () => {
+        doughnutBorderColor.value = border.value;
+        if (chartInstance) {
+          chartInstance.destroy();
+        }
+        createChart();
+      },
+      { immediate: true }
+    );
 
     onMounted(() => {
-      const chartOptions = {
-        cutout: 82,
-        borderWidth: 1,
-        offset: 5,
-        maintainAspectRatio: false,
-        responsive: true,
-        layout: {
-          padding: {},
-        },
-        plugins: {
-          legend: {
-            labels: {
-              font: {
-                size: 15,
-              },
-              usePointStyle: true,
-              pointStyle: "circle",
-            },
-          },
-        },
-        elements: {
-          arc: {
-            borderColor: "transparent",
-            // borderWidth: 5,
-          },
-        },
-      };
+      createChart();
+    });
 
+    // const chartOptions =
+    function createChart() {
+      const data = [10, 6, 2];
       const chartData = {
         labels: [`Not Started (${"10"})`, "Complete (8)", "In Progress (2)"],
         datasets: [
@@ -61,13 +56,39 @@ export default {
         ],
       };
 
-      new Chart(tasksChart.value.getContext("2d"), {
+      chartInstance = new Chart(tasksChart.value, {
         type: "doughnut",
         data: chartData,
-        options: chartOptions,
+        options: {
+          cutout: 85,
+          // offset: 5,
+          maintainAspectRatio: false,
+          responsive: true,
+          layout: {
+            padding: {},
+          },
+          plugins: {
+            legend: {
+              labels: {
+                font: {
+                  size: 15,
+                },
+                usePointStyle: true,
+                pointStyle: "circle",
+              },
+            },
+          },
+          elements: {
+            arc: {
+              borderColor: doughnutBorderColor.value,
+              borderWidth: 3,
+            },
+          },
+        },
         plugins: [spacing, customDataLabels],
       });
-    });
+    }
+
     const spacing = {
       id: "increase-legend-spacing",
       beforeInit(chart: any) {
@@ -79,7 +100,7 @@ export default {
           // Call original function and bind scope in order to use `this` correctly inside it
           originalFit.bind(chart.legend)();
           // Change the height as suggested in another answers
-          this.height += 40;
+          this.height += 30;
         };
       },
     };
@@ -96,7 +117,7 @@ export default {
         } = chart;
         ctx.save();
         data.datasets[0].data.forEach((dataPoint: any, index: any) => {
-          console.log(dataPoint);
+          // console.log(dataPoint);
           const { x, y } = chart
             .getDatasetMeta(0)
             .data[index].tooltipPosition();
@@ -123,5 +144,8 @@ export default {
 .chartContainer {
   height: 280px;
   width: 100%;
+  @media (max-width: 975px) {
+    height: 300px;
+  }
 }
 </style>

@@ -15,13 +15,66 @@
 <script lang="ts">
 import StatisticsCardHeader from "@/components/UI/StatisticsCardHeader.vue";
 import { Chart } from "chart.js/auto";
-import { ref, onMounted } from "vue";
+import { ref, watch, inject, computed, onMounted, onUnmounted } from "vue";
 export default {
   components: { StatisticsCardHeader },
   setup() {
     const workloadBar = ref();
+    let chartInstance: any = null;
+    const fontColor = ref("");
+    const gettingFontColor = inject<any>("fontColor");
+    const getFontColor = computed(() => {
+      return gettingFontColor.value;
+    });
+    watch(
+      getFontColor,
+      () => {
+        fontColor.value = getFontColor.value;
+      },
+      { immediate: true }
+    );
+
+    const borderColor = ref("");
+    const gettingBorder = inject<any>("borderColor");
+    const getBorder = computed(() => {
+      return gettingBorder.value;
+    });
+    watch(
+      getBorder,
+      () => {
+        borderColor.value = getBorder.value;
+        if (chartInstance) {
+          chartInstance.destroy();
+        }
+        createChart();
+        console.log("child", borderColor.value);
+      },
+      { immediate: true }
+    );
+    // Rerender
+    function UpdateChart() {
+      if (chartInstance) {
+        chartInstance.destroy();
+      }
+      createChart();
+      const media = window.matchMedia("(max-width:768px)");
+      if (media.matches) {
+        window.location.reload();
+      }
+    }
+
+    onUnmounted(() => {
+      chartInstance.destroy();
+      window.removeEventListener("resize", UpdateChart);
+    });
+
     onMounted(() => {
-      new Chart(workloadBar.value, {
+      window.addEventListener("resize", UpdateChart);
+      createChart();
+    });
+
+    function createChart() {
+      chartInstance = new Chart(workloadBar.value, {
         type: "bar",
         data: {
           labels: ["Mike", "Jennifer", "Brandon", "sam", "George"],
@@ -64,10 +117,17 @@ export default {
           scales: {
             x: {
               max: 8,
+
               grid: {
-                color: "gray",
+                color: borderColor.value,
+                lineWidth: 1.5,
               },
               ticks: {
+                font: {
+                  weight: "500",
+                  size: 14,
+                },
+                color: fontColor.value,
                 stepSize: 2,
                 padding: 20,
               },
@@ -86,6 +146,7 @@ export default {
                 display: false,
               },
               ticks: {
+                color: fontColor.value,
                 crossAlign: "far",
                 font: {
                   size: 15,
@@ -96,7 +157,8 @@ export default {
         },
         plugins: [pluginHeight],
       });
-    });
+    }
+
     const pluginHeight = {
       id: "pluginHeight",
       beforeInit(chart: any) {

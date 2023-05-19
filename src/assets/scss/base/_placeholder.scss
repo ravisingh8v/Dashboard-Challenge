@@ -9,3 +9,18 @@
   justify-content: center;
   align-items: center;
 }
+%bb-primary {
+  border-bottom: var(--border);
+}
+%bt-primary {
+  border-top: var(--border);
+}
+%bs-primary {
+  border-left: var(--border);
+}
+%be-primary {
+  border-right: var(--border);
+}
+%b-primary {
+  border: var(--border);
+}

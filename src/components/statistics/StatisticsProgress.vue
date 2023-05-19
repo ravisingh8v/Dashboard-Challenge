@@ -13,14 +13,37 @@
 <script lang="ts">
 import StatisticsCardHeader from "@/components/UI/StatisticsCardHeader.vue";
 import { defineComponent } from "vue";
-import { onMounted, ref } from "vue";
+import { onMounted, ref, watch, computed, inject } from "vue";
 import { Chart } from "chart.js/auto";
+import { create } from "d3";
 export default defineComponent({
   components: { StatisticsCardHeader },
   setup() {
     const progressBar = ref();
+    let chartInstance: any = "";
+
+    const fontColor = ref("");
+    const gettingFontColor = inject<any>("fontColor");
+    const getFontColor = computed(() => {
+      return gettingFontColor.value;
+    });
+    watch(
+      getFontColor,
+      () => {
+        fontColor.value = getFontColor.value;
+        if (chartInstance) {
+          chartInstance.destroy();
+        }
+        createChart();
+      },
+      { immediate: true }
+    );
+
     onMounted(() => {
-      new Chart(progressBar.value, {
+      createChart();
+    });
+    function createChart() {
+      chartInstance = new Chart(progressBar.value, {
         type: "bar",
         data: {
           labels: [
@@ -87,6 +110,7 @@ export default defineComponent({
                 scale.width = 160;
               },
               ticks: {
+                color: fontColor.value,
                 font: {
                   size: 15,
                 },
@@ -104,7 +128,7 @@ export default defineComponent({
         },
         plugins: [customDataLabels],
       });
-    });
+    }
     const customDataLabels = {
       id: "customDataLabels",
       afterDatasetsDraw(chart: any) {
@@ -116,8 +140,12 @@ export default defineComponent({
 
           ctx.font = "normal 16px sans-serif";
           ctx.fillStyle = data.datasets[0].backgroundColor[index];
-          (ctx.align = "right"), (ctx.textBaseline = "middle");
-          ctx.fillText(dataPoint + "%", 110, y);
+          (ctx.textAlign = "right"), (ctx.textBaseline = "middle");
+
+          if (dataPoint > 0 && dataPoint < 1) {
+            dataPoint = 0;
+          }
+          ctx.fillText(dataPoint + "%", 150, y);
         });
       },
     };

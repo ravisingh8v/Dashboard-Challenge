@@ -1,6 +1,6 @@
 .progress_wrapper {
-  border-bottom: 1px solid var(--border);
+  border-bottom: var(--border);
   @media (max-width: 1400px) {
-    border-right: 1px solid var(--border);
+    border-right: var(--border);
   }
 }

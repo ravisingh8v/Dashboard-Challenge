@@ -14,7 +14,7 @@
       </div>
       <!-- Navigation  -->
       <nav>
-        <div class="d-flex flex-column bb-primary align-items-center mt-1">
+        <div class="d-flex flex-column bb-h-primary align-items-center mt-1">
           <span class="material-symbols-outlined icon py-3"> home </span>
           <span class="material-symbols-outlined icon py-3"> pace </span>
         </div>

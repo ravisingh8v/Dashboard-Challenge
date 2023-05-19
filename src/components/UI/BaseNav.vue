@@ -1,6 +1,6 @@
 <template>
   <li class="d-flex align-items-center">
-    <RouterLink class="router_link" to="/">
+    <RouterLink class="router_link" to="/list">
       <span class="material-symbols-outlined icon"> list </span>
     </RouterLink>
   </li>

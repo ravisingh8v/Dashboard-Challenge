@@ -11,14 +11,49 @@
 </template>
 <script lang="ts">
 import StatisticsCardHeader from "@/components/UI/StatisticsCardHeader.vue";
-import { ref, onMounted } from "vue";
+import { ref, onMounted, inject, computed, watch } from "vue";
 import { Chart } from "chart.js/auto";
 export default {
   components: { StatisticsCardHeader },
   setup() {
     const costChart = ref();
+    let chartInstance: any = null;
+    const fontColor = ref("");
+    const gettingFontColor = inject<any>("fontColor");
+    const getFontColor = computed(() => {
+      return gettingFontColor.value;
+    });
+    watch(
+      getFontColor,
+      () => {
+        fontColor.value = getFontColor.value;
+      },
+      { immediate: true }
+    );
+
+    const borderColor = ref("");
+    const gettingBorder = inject<any>("borderColor");
+    const getBorder = computed(() => {
+      return gettingBorder.value;
+    });
+    watch(
+      getBorder,
+      () => {
+        borderColor.value = getBorder.value;
+        if (chartInstance) {
+          chartInstance.destroy();
+        }
+        createChart();
+        console.log("child", borderColor.value);
+      },
+      { immediate: true }
+    );
 
     onMounted(() => {
+      createChart();
+    });
+
+    function createChart() {
       const data = ["3.3", "4.5", "6"];
       // options
       // Chart Data
@@ -62,7 +97,7 @@ export default {
       //   },
       // };
       // Chart js
-      new Chart(costChart.value.getContext("2d"), {
+      chartInstance = new Chart(costChart.value, {
         type: "bar",
         data: chartData,
         // OPTIONS
@@ -103,14 +138,15 @@ export default {
                   }
                 },
                 stepSize: 1.5,
-                color: "gray",
+                color: fontColor.value,
                 font: {
                   size: 15,
                 },
                 padding: 20,
               },
               grid: {
-                color: "gray",
+                color: borderColor.value,
+                lineWidth: 1.5,
               },
               border: {
                 display: false,
@@ -136,7 +172,7 @@ export default {
         },
         plugins: [plugin],
       });
-    });
+    }
     // to space between legend and chart
     const plugin = {
       id: "increase-legend-spacing",

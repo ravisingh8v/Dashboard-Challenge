@@ -7,13 +7,13 @@
     height: 35px;
     width: 35px;
     color: var(--primary-color);
-    border: 2px solid var(--border);
+    border: var(--border);
   }
   span {
     color: var(--primary-color);
   }
   .brand_wrapper {
-    border-bottom: 1px solid var(--border);
+    border-bottom: 2px solid var(--border-head);
   }
   .profile-wrapper {
     height: 35px;

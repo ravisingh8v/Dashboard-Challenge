@@ -1,9 +1,9 @@
 .health_wrapper {
-  border-right: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
+  border-right: var(--border);
+  border-bottom: var(--border);
 
   .table_row {
-    border-bottom: 1px solid var(--border);
+    border-bottom: var(--border);
     display: block;
     padding-bottom: 10px;
     margin-top: 12px;

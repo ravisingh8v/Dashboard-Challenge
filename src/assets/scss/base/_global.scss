@@ -19,14 +19,17 @@ body {
   --secondary-bg-color: rgb(160, 173, 177);
   --primary-color: #343a40;
   --secondary-color: grey;
-  --border: #dfe8f1;
+  --border: 2px solid #dfe8f1;
+  --border-head: #dfe8f1;
 }
 :root.dark {
-  --primary-bg-color: #101321;
+  --primary-bg-color: #101422;
+  // #101321;
   --secondary-bg-color: black;
   --primary-color: rgb(204, 204, 204);
   --secondary-color: rgb(170, 170, 170);
-  --border: #6c757d;
+  --border: 2px solid #363947;
+  --border-head: #363947;
 }
 .color-primary {
   color: var(--primary-color);
@@ -55,13 +58,25 @@ body {
 }
 .header_height {
   height: 55px;
-  border-bottom: 1px solid var(--border);
+  border-bottom: 2px solid var(--border-head);
 }
 .b-primary {
-  border: 1px solid var(--border);
+  border: var(--border);
 }
 .bb-primary {
-  border-bottom: 1px solid var(--border);
+  border-bottom: var(--border);
+}
+.bb-h-primary {
+  border-bottom: 2px solid var(--border-head);
+}
+.bt-pr y {
+  border-top: var(--border);
+}
+.bs-primary {
+  border-left: var(--border);
+}
+.be-primary {
+  border-right: var(--border);
 }
 a.active {
   border: 2px solid #6acb6d;
