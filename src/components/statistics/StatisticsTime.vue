@@ -53,128 +53,130 @@ export default {
     });
 
     function chartCreate() {
-      chartInstance = new Chart(timeBar.value, {
-        type: "bar",
-        data: {
-          labels: [
-            // "",
-            "Planned comple...",
-            "Actual comple...",
-            "Ahead",
-            "",
-            "",
-            "",
-          ],
+      if (timeBar.value) {
+        chartInstance = new Chart(timeBar.value.getContext("2d"), {
+          type: "bar",
+          data: {
+            labels: [
+              // "",
+              "Planned comple...",
+              "Actual comple...",
+              "Ahead",
+              "",
+              "",
+              "",
+            ],
 
-          datasets: [
-            {
-              label: "Ahead",
-              data: [],
-              backgroundColor: ["#40acf0"],
-              // barThickness: 25,
-            },
-            {
-              label: "Behind",
-              data: [],
-              backgroundColor: ["#f7a652"],
-              // barThickness: 25,
-            },
-            {
-              label: "On Time",
-              data: ["0.9", "14", "14", "", "", ""],
-              backgroundColor: ["#6dc96a"],
-              barThickness: 30,
-            },
-            {
-              label: "",
-              data: [],
-              backgroundColor: "transparent",
-            },
-            {
-              label: "",
-              data: [],
-              backgroundColor: "transparent",
-            },
-          ],
-        },
-
-        options: {
-          maintainAspectRatio: false,
-          plugins: {
-            legend: {
-              align: "start",
-              labels: {
-                font: {
-                  size: 15,
-                },
-                usePointStyle: true,
-                pointStyle: "circle",
+            datasets: [
+              {
+                label: "Ahead",
+                data: [],
+                backgroundColor: ["#40acf0"],
+                // barThickness: 25,
               },
-              // display: false,
-            },
-          },
-          elements: {
-            bar: {
-              borderColor: "transparent",
-              borderWidth: {
-                top: 4,
-                bottom: 4,
+              {
+                label: "Behind",
+                data: [],
+                backgroundColor: ["#f7a652"],
+                // barThickness: 25,
               },
-            },
+              {
+                label: "On Time",
+                data: ["0.9", "14", "14", "", "", ""],
+                backgroundColor: ["#6dc96a"],
+                barThickness: 30,
+              },
+              {
+                label: "",
+                data: [],
+                backgroundColor: "transparent",
+              },
+              {
+                label: "",
+                data: [],
+                backgroundColor: "transparent",
+              },
+            ],
           },
 
-          indexAxis: "y",
-          scales: {
-            x: {
-              max: 100,
-              min: -100,
-              // display: false,
-              ticks: {
-                color: fontColor.value,
-                font: {
-                  size: 14,
+          options: {
+            maintainAspectRatio: false,
+            plugins: {
+              legend: {
+                align: "start",
+                labels: {
+                  font: {
+                    size: 15,
+                  },
+                  usePointStyle: true,
+                  pointStyle: "circle",
                 },
-                stepSize: 25,
-                callback: function (value) {
-                  if (+value < 0) {
-                    return -value;
-                  } else {
-                    return value;
-                  }
-                },
-              },
-              border: {
-                display: false,
-              },
-              grid: {
-                display: true,
-                lineWidth: 1.5,
-                color: borderColor.value,
+                // display: false,
               },
             },
-            y: {
-              afterFit: function (scale: any) {
-                scale.width = 130;
-              },
-              ticks: {
-                font: {
-                  size: 15,
+            elements: {
+              bar: {
+                borderColor: "transparent",
+                borderWidth: {
+                  top: 4,
+                  bottom: 4,
                 },
-                color: fontColor.value,
-                crossAlign: "far",
               },
-              border: {
-                display: false,
+            },
+
+            indexAxis: "y",
+            scales: {
+              x: {
+                max: 100,
+                min: -100,
+                // display: false,
+                ticks: {
+                  color: fontColor.value,
+                  font: {
+                    size: 14,
+                  },
+                  stepSize: 25,
+                  callback: function (value) {
+                    if (+value < 0) {
+                      return -value;
+                    } else {
+                      return value;
+                    }
+                  },
+                },
+                border: {
+                  display: false,
+                },
+                grid: {
+                  display: true,
+                  lineWidth: 1.5,
+                  color: borderColor.value,
+                },
               },
-              grid: {
-                display: false,
+              y: {
+                afterFit: function (scale: any) {
+                  scale.width = 130;
+                },
+                ticks: {
+                  font: {
+                    size: 15,
+                  },
+                  color: fontColor.value,
+                  crossAlign: "far",
+                },
+                border: {
+                  display: false,
+                },
+                grid: {
+                  display: false,
+                },
               },
             },
           },
-        },
 
-        plugins: [customDataLabels, pluginHeight],
-      });
+          plugins: [customDataLabels, pluginHeight],
+        });
+      }
     }
     const pluginHeight = {
       id: "pluginHeight",

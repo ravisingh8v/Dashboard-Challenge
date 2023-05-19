@@ -97,81 +97,83 @@ export default {
       //   },
       // };
       // Chart js
-      chartInstance = new Chart(costChart.value, {
-        type: "bar",
-        data: chartData,
-        // OPTIONS
-        options: {
-          maintainAspectRatio: false,
-          responsive: true,
-          // PLUGINS
-          plugins: {
-            legend: {
-              position: "top",
-              align: "start",
-              labels: {
-                font: {
-                  size: 15,
+      if (costChart.value) {
+        chartInstance = new Chart(costChart.value.getContext("2d"), {
+          type: "bar",
+          data: chartData,
+          // OPTIONS
+          options: {
+            maintainAspectRatio: false,
+            responsive: true,
+            // PLUGINS
+            plugins: {
+              legend: {
+                position: "top",
+                align: "start",
+                labels: {
+                  font: {
+                    size: 15,
+                  },
+                  color: "gray",
+                  usePointStyle: true,
+                  pointStyle: "circle",
                 },
-                color: "gray",
-                usePointStyle: true,
-                pointStyle: "circle",
               },
             },
-          },
-          // LAYOUT
-          layout: {
-            padding: {
-              bottom: 10,
-              right: 20,
+            // LAYOUT
+            layout: {
+              padding: {
+                bottom: 10,
+                right: 20,
+              },
             },
-          },
-          // SCALE
-          scales: {
-            y: {
-              ticks: {
-                callback: function (value, index) {
-                  if (index == 0) {
-                    return "$" + value;
-                  } else {
-                    return value + "k";
-                  }
+            // SCALE
+            scales: {
+              y: {
+                ticks: {
+                  callback: function (value, index) {
+                    if (index == 0) {
+                      return "$" + value;
+                    } else {
+                      return value + "k";
+                    }
+                  },
+                  stepSize: 1.5,
+                  color: fontColor.value,
+                  font: {
+                    size: 15,
+                  },
+                  padding: 20,
                 },
-                stepSize: 1.5,
-                color: fontColor.value,
-                font: {
-                  size: 15,
+                grid: {
+                  color: borderColor.value,
+                  lineWidth: 1.5,
                 },
-                padding: 20,
+                border: {
+                  display: false,
+                },
               },
-              grid: {
-                color: borderColor.value,
-                lineWidth: 1.5,
-              },
-              border: {
-                display: false,
-              },
-            },
-            x: {
-              // position: "center",
-              grid: {
-                display: false,
+              x: {
+                // position: "center",
+                grid: {
+                  display: false,
+                },
               },
             },
-          },
-          // ELEMENTS
-          elements: {
-            bar: {
-              borderColor: "transparent",
-              borderWidth: {
-                left: 4,
-                right: 4,
+            // ELEMENTS
+            elements: {
+              bar: {
+                borderColor: "transparent",
+                borderWidth: {
+                  left: 4,
+                  right: 4,
+                },
               },
             },
           },
-        },
-        plugins: [plugin],
-      });
+          plugins: [plugin],
+        });
+      }
     }
     // to space between legend and chart
     const plugin = {

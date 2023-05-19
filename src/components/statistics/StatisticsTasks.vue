@@ -55,38 +55,39 @@ export default {
           },
         ],
       };
-
-      chartInstance = new Chart(tasksChart.value, {
-        type: "doughnut",
-        data: chartData,
-        options: {
-          cutout: 85,
-          // offset: 5,
-          maintainAspectRatio: false,
-          responsive: true,
-          layout: {
-            padding: {},
-          },
-          plugins: {
-            legend: {
-              labels: {
-                font: {
-                  size: 15,
+      if (tasksChart.value) {
+        chartInstance = new Chart(tasksChart.value.getContext("2d"), {
+          type: "doughnut",
+          data: chartData,
+          options: {
+            cutout: 85,
+            // offset: 5,
+            maintainAspectRatio: false,
+            responsive: true,
+            layout: {
+              padding: {},
+            },
+            plugins: {
+              legend: {
+                labels: {
+                  font: {
+                    size: 15,
+                  },
+                  usePointStyle: true,
+                  pointStyle: "circle",
                 },
-                usePointStyle: true,
-                pointStyle: "circle",
+              },
+            },
+            elements: {
+              arc: {
+                borderColor: doughnutBorderColor.value,
+                borderWidth: 3,
               },
             },
           },
-          elements: {
-            arc: {
-              borderColor: doughnutBorderColor.value,
-              borderWidth: 3,
-            },
-          },
-        },
-        plugins: [spacing, customDataLabels],
-      });
+          plugins: [spacing, customDataLabels],
+        });
+      }
     }
 
     const spacing = {

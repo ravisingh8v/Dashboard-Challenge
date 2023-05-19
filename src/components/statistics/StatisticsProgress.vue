@@ -43,91 +43,93 @@ export default defineComponent({
       createChart();
     });
     function createChart() {
-      chartInstance = new Chart(progressBar.value, {
-        type: "bar",
-        data: {
-          labels: [
-            "Congrats",
-            "Design",
-            "Procurement",
-            "Construction",
-            "Post Const...",
-            "Project Col...",
-          ],
+      if (progressBar.value) {
+        chartInstance = new Chart(progressBar.value, {
+          type: "bar",
+          data: {
+            labels: [
+              "Congrats",
+              "Design",
+              "Procurement",
+              "Construction",
+              "Post Const...",
+              "Project Col...",
+            ],
 
-          datasets: [
-            {
-              label: "",
-              data: ["100", "80", "19", "0.5", "0.5", "0.5"],
-              backgroundColor: [
-                "#6acb6d",
-                "#67cb6c",
-                "#df5a9d",
-                // "yellow",
-                "#7f848e",
-                "#7f848e",
-                "#7f848e",
-              ],
-              barThickness: 40,
-            },
-          ],
-        },
-
-        options: {
-          plugins: {
-            legend: {
-              display: false,
-            },
+            datasets: [
+              {
+                label: "",
+                data: ["100", "80", "19", "0.5", "0.5", "0.5"],
+                backgroundColor: [
+                  "#6acb6d",
+                  "#67cb6c",
+                  "#df5a9d",
+                  // "yellow",
+                  "#7f848e",
+                  "#7f848e",
+                  "#7f848e",
+                ],
+                barThickness: 40,
+              },
+            ],
           },
 
-          elements: {
-            bar: {
-              borderColor: "transparent",
-              borderWidth: {
-                top: 10,
-                bottom: 10,
-              },
-            },
-          },
-          maintainAspectRatio: false,
-          // responsive: true,
-          indexAxis: "y",
-          scales: {
-            x: {
-              display: false,
-              ticks: {
-                //   stepSize: 10,
-                //   callback: function (value) {
-                //     return value + "%";
-                //   },
-              },
-              grid: {
+          options: {
+            plugins: {
+              legend: {
                 display: false,
               },
             },
-            y: {
-              afterFit: function (scale: any) {
-                scale.width = 160;
-              },
-              ticks: {
-                color: fontColor.value,
-                font: {
-                  size: 15,
+
+            elements: {
+              bar: {
+                borderColor: "transparent",
+                borderWidth: {
+                  top: 10,
+                  bottom: 10,
                 },
-                // color: "white",
-                // align: "start",
-                crossAlign: "far",
-                padding: 20,
               },
-
-              grid: {
+            },
+            maintainAspectRatio: false,
+            // responsive: true,
+            indexAxis: "y",
+            scales: {
+              x: {
                 display: false,
+                ticks: {
+                  //   stepSize: 10,
+                  //   callback: function (value) {
+                  //     return value + "%";
+                  //   },
+                },
+                grid: {
+                  display: false,
+                },
+              },
+              y: {
+                afterFit: function (scale: any) {
+                  scale.width = 160;
+                },
+                ticks: {
+                  color: fontColor.value,
+                  font: {
+                    size: 15,
+                  },
+                  // color: "white",
+                  // align: "start",
+                  crossAlign: "far",
+                  padding: 20,
+                },
+
+                grid: {
+                  display: false,
+                },
               },
             },
           },
-        },
-        plugins: [customDataLabels],
-      });
+          plugins: [customDataLabels],
+        });
+      }
     }
     const customDataLabels = {
       id: "customDataLabels",

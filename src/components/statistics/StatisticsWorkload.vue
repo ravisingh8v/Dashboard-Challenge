@@ -74,89 +74,91 @@ export default {
     });
 
     function createChart() {
-      chartInstance = new Chart(workloadBar.value, {
-        type: "bar",
-        data: {
-          labels: ["Mike", "Jennifer", "Brandon", "sam", "George"],
-          datasets: [
-            {
-              label: "Completed",
-              data: [4, 2, 0, 0, 0],
-              backgroundColor: "#68cc6d",
-              barThickness: 20,
-            },
-            {
-              label: "Remaining",
-              data: [0, 2, 1, 3, 1],
-              backgroundColor: "#50cac1",
-              barThickness: 20,
-            },
-            {
-              label: "Overdue",
-              data: [0, 0, 0, 0, 0],
-              backgroundColor: "#f0504c",
-              barThickness: 20,
-            },
-          ],
-        },
-        options: {
-          maintainAspectRatio: false,
-          plugins: {
-            legend: {
-              align: "start",
-              labels: {
-                font: {
-                  size: 15,
+      if (workloadBar.value) {
+        chartInstance = new Chart(workloadBar.value.getContext("2d"), {
+          type: "bar",
+          data: {
+            labels: ["Mike", "Jennifer", "Brandon", "sam", "George"],
+            datasets: [
+              {
+                label: "Completed",
+                data: [4, 2, 0, 0, 0],
+                backgroundColor: "#68cc6d",
+                barThickness: 20,
+              },
+              {
+                label: "Remaining",
+                data: [0, 2, 1, 3, 1],
+                backgroundColor: "#50cac1",
+                barThickness: 20,
+              },
+              {
+                label: "Overdue",
+                data: [0, 0, 0, 0, 0],
+                backgroundColor: "#f0504c",
+                barThickness: 20,
+              },
+            ],
+          },
+          options: {
+            maintainAspectRatio: false,
+            plugins: {
+              legend: {
+                align: "start",
+                labels: {
+                  font: {
+                    size: 15,
+                  },
+                  usePointStyle: true,
+                  pointStyle: "circle",
                 },
-                usePointStyle: true,
-                pointStyle: "circle",
+              },
+            },
+            indexAxis: "y",
+            scales: {
+              x: {
+                max: 8,
+
+                grid: {
+                  color: borderColor.value,
+                  lineWidth: 1.5,
+                },
+                ticks: {
+                  font: {
+                    weight: "500",
+                    size: 14,
+                  },
+                  color: fontColor.value,
+                  stepSize: 2,
+                  padding: 20,
+                },
+                border: {
+                  display: false,
+                },
+
+                stacked: true,
+              },
+              y: {
+                stacked: true,
+                afterFit: function (scale: any) {
+                  scale.width = 100;
+                },
+                grid: {
+                  display: false,
+                },
+                ticks: {
+                  color: fontColor.value,
+                  crossAlign: "far",
+                  font: {
+                    size: 15,
+                  },
+                },
               },
             },
           },
-          indexAxis: "y",
-          scales: {
-            x: {
-              max: 8,
-
-              grid: {
-                color: borderColor.value,
-                lineWidth: 1.5,
-              },
-              ticks: {
-                font: {
-                  weight: "500",
-                  size: 14,
-                },
-                color: fontColor.value,
-                stepSize: 2,
-                padding: 20,
-              },
-              border: {
-                display: false,
-              },
-
-              stacked: true,
-            },
-            y: {
-              stacked: true,
-              afterFit: function (scale: any) {
-                scale.width = 100;
-              },
-              grid: {
-                display: false,
-              },
-              ticks: {
-                color: fontColor.value,
-                crossAlign: "far",
-                font: {
-                  size: 15,
-                },
-              },
-            },
-          },
-        },
-        plugins: [pluginHeight],
-      });
+          plugins: [pluginHeight],
+        });
+      }
     }
 
     const pluginHeight = {
