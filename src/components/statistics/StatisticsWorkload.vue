@@ -47,7 +47,7 @@ export default {
           chartInstance.destroy();
         }
         createChart();
-        console.log("child", borderColor.value);
+        // console.log("child", borderColor.value);
       },
       { immediate: true }
     );

@@ -15,7 +15,6 @@ import StatisticsCardHeader from "@/components/UI/StatisticsCardHeader.vue";
 import { defineComponent } from "vue";
 import { onMounted, ref, watch, computed, inject } from "vue";
 import { Chart } from "chart.js/auto";
-import { create } from "d3";
 export default defineComponent({
   components: { StatisticsCardHeader },
   setup() {
@@ -96,12 +95,7 @@ export default defineComponent({
             scales: {
               x: {
                 display: false,
-                ticks: {
-                  //   stepSize: 10,
-                  //   callback: function (value) {
-                  //     return value + "%";
-                  //   },
-                },
+
                 grid: {
                   display: false,
                 },

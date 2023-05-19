@@ -44,7 +44,7 @@ export default {
           chartInstance.destroy();
         }
         createChart();
-        console.log("child", borderColor.value);
+        // console.log("child", borderColor.value);
       },
       { immediate: true }
     );
@@ -89,13 +89,7 @@ export default {
           // { label: "", data: "0" },
         ],
       };
-      // const legendMarginLeft = {
-      //   id: "legendMarginLeft",
-      //   afterInit(chart: Chart, args: any, options: any) {
-      //     console.log(chart);
-      //     const fitValue = chart.legend;
-      //   },
-      // };
+
       // Chart js
       if (costChart.value) {
         chartInstance = new Chart(costChart.value.getContext("2d"), {
@@ -184,9 +178,7 @@ export default {
 
         // Override the fit function
         chart.legend.fit = function fit() {
-          // Call original function and bind scope in order to use `this` correctly inside it
           originalFit.bind(chart.legend)();
-          // Change the height as suggested in another answers
           this.height += 40;
         };
       },

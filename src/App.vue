@@ -31,7 +31,7 @@ export default {
       themeChanger,
       () => {
         theme.value = themeChanger?.value;
-        console.log(theme.value);
+        // console.log(theme.value);
       },
       { immediate: true }
     );

@@ -98,9 +98,7 @@ export default {
 
         // Override the fit function
         chart.legend.fit = function fit() {
-          // Call original function and bind scope in order to use `this` correctly inside it
           originalFit.bind(chart.legend)();
-          // Change the height as suggested in another answers
           this.height += 30;
         };
       },
@@ -108,17 +106,14 @@ export default {
     // Created Custom Labels
     const customDataLabels = {
       id: "customDataLabels",
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      afterDatasetsDraw(chart: any, args: any, pluginOption: any) {
+      afterDatasetsDraw(chart: any) {
         const {
           ctx,
           data,
-          // eslint-disable-next-line @typescript-eslint/no-unused-vars
-          chartArea: { top, bottom, left, right, width, height },
+          chartArea: { width, height },
         } = chart;
         ctx.save();
         data.datasets[0].data.forEach((dataPoint: any, index: any) => {
-          // console.log(dataPoint);
           const { x, y } = chart
             .getDatasetMeta(0)
             .data[index].tooltipPosition();
@@ -132,7 +127,6 @@ export default {
           const xLine = x >= halfWidth ? x + 25 : x - 10;
           const yLine = y >= halfHeight ? y + 20 : y - 25;
           const extraLine = x >= halfWidth ? 15 : -15;
-          // ctx.moveTo(x, y);
           ctx.fillText(dataPoint, xLine + extraLine, yLine);
         });
       },
