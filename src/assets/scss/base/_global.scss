@@ -60,6 +60,9 @@ body {
   height: 55px;
   border-bottom: 2px solid var(--border-head);
 }
+.background-secondary {
+  background-color: var(--secondary-bg-color);
+}
 .b-primary {
   border: var(--border);
 }

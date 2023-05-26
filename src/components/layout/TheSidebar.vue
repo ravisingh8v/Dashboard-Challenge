@@ -1,10 +1,10 @@
 <template>
   <section class="sidebar d-flex flex-column justify-content-between h-100">
     <!-- top  -->
-    <div class="">
+    <div class="overflow-hidden">
       <!-- Brand Logo  -->
       <div
-        class="brand_wrapper d-flex justify-content-center align-items-center header_height px-2"
+        class="background-secondary brand_wrapper d-flex justify-content-center align-items-center header_height px-2 position-sticky top-0"
       >
         <div
           class="logo rounded-circle d-flex justify-content-center align-items-center"
@@ -13,7 +13,7 @@
         </div>
       </div>
       <!-- Navigation  -->
-      <nav>
+      <nav class="overflow-auto h-100">
         <div class="d-flex flex-column bb-h-primary align-items-center mt-1">
           <span class="material-symbols-outlined icon py-3"> home </span>
           <span class="material-symbols-outlined icon py-3"> pace </span>
@@ -22,13 +22,13 @@
           <span class="material-symbols-outlined icon py-3"> group </span>
           <span class="material-symbols-outlined icon py-3"> work </span>
         </div>
+        <nav class="d-block d-md-none">
+          <ul class="d-flex flex-column align-items-center">
+            <BaseNav></BaseNav>
+          </ul>
+        </nav>
       </nav>
     </div>
-    <nav class="d-block d-md-none">
-      <ul class="d-flex flex-column align-items-center">
-        <BaseNav></BaseNav>
-      </ul>
-    </nav>
     <!-- bottom -->
     <nav class="d-flex flex-column align-items-center">
       <span

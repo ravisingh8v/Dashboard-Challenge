@@ -1,11 +1,12 @@
 <template>
-  <section class="px-4">
+  <section class="">
     <!-- Top Section  -->
     <StatisticsCardHeader
       :is-show="false"
       title="Health"
+      class="px-3"
     ></StatisticsCardHeader>
-    <div class="mt-3">
+    <div class="mt-3 px-3">
       <table class="w-100">
         <tbody>
           <tr class="table_row">
@@ -41,5 +42,7 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-//fb
+.health-wrapper {
+  padding: 0 20px;
+}
 </style>

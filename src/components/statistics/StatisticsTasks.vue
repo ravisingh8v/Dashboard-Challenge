@@ -1,7 +1,7 @@
 <template>
-  <section class="px-4">
+  <section class="">
     <!-- Top Section  -->
-    <StatisticsCardHeader title="Tasks"></StatisticsCardHeader>
+    <StatisticsCardHeader title="Tasks" class="px-3"></StatisticsCardHeader>
     <div class="chartContainer mt-3">
       <canvas
         id="tasksChart"
@@ -14,6 +14,7 @@
 <script lang="ts">
 import StatisticsCardHeader from "@/components/UI/StatisticsCardHeader.vue";
 import { Chart } from "chart.js/auto";
+import ChartDataLabels from "chartjs-plugin-datalabels";
 import { ref, inject, watch, computed, onMounted } from "vue";
 export default {
   components: { StatisticsCardHeader },
@@ -37,8 +38,24 @@ export default {
       },
       { immediate: true }
     );
-
+    const labelFontSize = ref();
+    function fontSize() {
+      const media = window.matchMedia("(max-width:578px)");
+      if (media.matches) {
+        chartInstance.destroy();
+        labelFontSize.value = 12;
+        createChart();
+      } else {
+        chartInstance.destroy();
+        labelFontSize.value = 15;
+        createChart();
+      }
+      // if (!media.matches) {
+      //   labelFontSize.value = 15;
+      // }
+    }
     onMounted(() => {
+      window.addEventListener("resize", fontSize);
       createChart();
     });
 
@@ -52,6 +69,7 @@ export default {
             label: "My First Dataset",
             data: data,
             backgroundColor: ["#9da4ad", "#6bc76e", "#4fcbc2"],
+            cutout: 82,
           },
         ],
       };
@@ -60,24 +78,41 @@ export default {
           type: "doughnut",
           data: chartData,
           options: {
-            cutout: 85,
             // offset: 5,
             maintainAspectRatio: false,
             responsive: true,
             layout: {
-              padding: {},
+              padding: {
+                left: 20,
+                right: 20,
+                bottom: 10,
+              },
             },
             plugins: {
+              datalabels: {
+                anchor: "center",
+                align: "end",
+                color: function (value: any) {
+                  console.log(value);
+                  return value.dataset.backgroundColor[value.dataIndex];
+                },
+                padding: 16,
+                font: {
+                  weight: 600,
+                  size: 17,
+                },
+              },
               legend: {
                 labels: {
                   font: {
-                    size: 15,
+                    size: labelFontSize.value,
                   },
                   usePointStyle: true,
                   pointStyle: "circle",
                 },
               },
             },
+
             elements: {
               arc: {
                 borderColor: doughnutBorderColor.value,
@@ -85,7 +120,7 @@ export default {
               },
             },
           },
-          plugins: [spacing, customDataLabels],
+          plugins: [spacing, ChartDataLabels],
         });
       }
     }
@@ -104,33 +139,33 @@ export default {
       },
     };
     // Created Custom Labels
-    const customDataLabels = {
-      id: "customDataLabels",
-      afterDatasetsDraw(chart: any) {
-        const {
-          ctx,
-          data,
-          chartArea: { width, height },
-        } = chart;
-        ctx.save();
-        data.datasets[0].data.forEach((dataPoint: any, index: any) => {
-          const { x, y } = chart
-            .getDatasetMeta(0)
-            .data[index].tooltipPosition();
+    // const customDataLabels = {
+    //   id: "customDataLabels",
+    //   afterDatasetsDraw(chart: any) {
+    //     const {
+    //       ctx,
+    //       data,
+    //       chartArea: { width, height },
+    //     } = chart;
+    //     ctx.save();
+    //     data.datasets[0].data.forEach((dataPoint: any, index: any) => {
+    //       const { x, y } = chart
+    //         .getDatasetMeta(0)
+    //         .data[index].tooltipPosition();
 
-          const halfWidth = width / 2;
-          const halfHeight = height / 2;
-          ctx.font = "normal 20px sans-serif ";
-          ctx.fillStyle = data.datasets[0].backgroundColor[index];
-          ctx.textAlign = "center";
-          ctx.textBaseline = "middle";
-          const xLine = x >= halfWidth ? x + 25 : x - 10;
-          const yLine = y >= halfHeight ? y + 20 : y - 25;
-          const extraLine = x >= halfWidth ? 15 : -15;
-          ctx.fillText(dataPoint, xLine + extraLine, yLine);
-        });
-      },
-    };
+    //       const halfWidth = width / 2;
+    //       const halfHeight = height / 2;
+    //       ctx.font = "normal 20px sans-serif ";
+    //       ctx.fillStyle = data.datasets[0].backgroundColor[index];
+    //       ctx.textAlign = "center";
+    //       ctx.textBaseline = "middle";
+    //       const xLine = x >= halfWidth ? x + 25 : x - 10;
+    //       const yLine = y >= halfHeight ? y + 20 : y - 25;
+    //       const extraLine = x >= halfWidth ? 15 : -15;
+    //       ctx.fillText(dataPoint, xLine + extraLine, yLine);
+    //     });
+    //   },
+    // };
     return { tasksChart };
   },
 };

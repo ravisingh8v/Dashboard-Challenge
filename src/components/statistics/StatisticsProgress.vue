@@ -1,7 +1,7 @@
 <template>
-  <section class="px-4 d-flex flex-column h-100">
+  <section class="d-flex flex-column h-100">
     <!-- Top Section  -->
-    <StatisticsCardHeader title="Progress"></StatisticsCardHeader>
+    <StatisticsCardHeader title="Progress" class="px-3"></StatisticsCardHeader>
     <div
       id="chartContainer"
       class="d-flex justify-content-center align-items-center flex-grow-1"
@@ -79,7 +79,12 @@ export default defineComponent({
                 display: false,
               },
             },
-
+            layout: {
+              padding: {
+                left: 20,
+                right: 20,
+              },
+            },
             elements: {
               bar: {
                 borderColor: "transparent",
@@ -152,7 +157,8 @@ export default defineComponent({
 </script>
 <style scoped lang="scss">
 #chartContainer {
-  padding-right: 40px;
+  // padding-right: 40px;
   width: 100%;
+  height: 300px;
 }
 </style>

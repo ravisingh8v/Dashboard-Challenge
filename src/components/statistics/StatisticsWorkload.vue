@@ -1,7 +1,7 @@
 <template>
-  <section class="px-4">
+  <section class="">
     <!-- Top Section  -->
-    <StatisticsCardHeader title="Workload"></StatisticsCardHeader>
+    <StatisticsCardHeader title="Workload" class="px-3"></StatisticsCardHeader>
     <div id="chartContainer" class="mt-3">
       <canvas
         ref="workloadBar"
@@ -112,6 +112,12 @@ export default {
                   usePointStyle: true,
                   pointStyle: "circle",
                 },
+              },
+            },
+            layout: {
+              padding: {
+                left: 20,
+                right: 20,
               },
             },
             indexAxis: "y",

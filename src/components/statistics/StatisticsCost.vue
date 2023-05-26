@@ -1,7 +1,7 @@
 <template>
-  <section class="px-4 h-100 d-flex flex-column">
+  <section class="h-100 d-flex flex-column">
     <!-- Top Section  -->
-    <StatisticsCardHeader title="Cost"></StatisticsCardHeader>
+    <StatisticsCardHeader title="Cost" class="px-3"></StatisticsCardHeader>
     <div class="chartContainer flex-grow-1 mt-3">
       <canvas ref="costChart" area-label="cost-chart"></canvas>
       <!-- width="100" -->
@@ -119,6 +119,7 @@ export default {
               padding: {
                 bottom: 10,
                 right: 20,
+                left: 20,
               },
             },
             // SCALE

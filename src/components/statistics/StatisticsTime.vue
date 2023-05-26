@@ -1,7 +1,7 @@
 <template>
-  <section class="px-4">
+  <section class="">
     <!-- Top Section  -->
-    <StatisticsCardHeader title="Time"></StatisticsCardHeader>
+    <StatisticsCardHeader title="Time" class="px-3"></StatisticsCardHeader>
     <div id="chartContainer" class="mt-3">
       <canvas ref="timeBar" height="" width="" area-label="time-bar"></canvas>
     </div>
@@ -111,6 +111,12 @@ export default {
                   pointStyle: "circle",
                 },
                 // display: false,
+              },
+            },
+            layout: {
+              padding: {
+                left: 20,
+                right: 20,
               },
             },
             elements: {

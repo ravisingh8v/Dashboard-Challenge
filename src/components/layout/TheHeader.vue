@@ -1,5 +1,7 @@
 <template>
-  <section class="color-secondary row gx-0 align-items-center h-100 px-4">
+  <section
+    class="color-secondary row gx-0 align-items-center h-100 px-sm-4 px-2"
+  >
     <div class="col-12 col-xxl-4 col-md-6 d-flex h-100 align-items-center">
       <h3 class="m-0 fw-normal">Govalle Construction</h3>
       <!-- profiles wrappers -->

@@ -31,3 +31,8 @@ export default {
   },
 };
 </script>
+<style lang="scss" scoped>
+.card-header {
+  padding: 0 20px;
+}
+</style>
