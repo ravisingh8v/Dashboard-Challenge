@@ -38,6 +38,7 @@ export default {
       },
       { immediate: true }
     );
+
     const labelFontSize = ref();
     function fontSize() {
       const media = window.matchMedia("(max-width:578px)");
@@ -54,8 +55,8 @@ export default {
       //   labelFontSize.value = 15;
       // }
     }
+    window.addEventListener("resize", fontSize);
     onMounted(() => {
-      window.addEventListener("resize", fontSize);
       createChart();
     });
 
